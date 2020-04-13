@@ -26,6 +26,7 @@ class AppAdapter(context: Context, resId: Int, list:ArrayList<App>) : ArrayAdapt
         val row = tempRow!!
 
 
+
         return row
     }
 
