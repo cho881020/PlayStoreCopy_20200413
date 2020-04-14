@@ -1,7 +1,10 @@
 package kr.tjeit.playstorecopy_20200413
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.tjeit.playstorecopy_20200413.adapters.AppAdapter
 import kr.tjeit.playstorecopy_20200413.datas.App
@@ -19,6 +22,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setupEvents() {
+
+        appListView.setOnItemLongClickListener { parent, view, position, id ->
+
+            val alert = AlertDialog.Builder(this)
+
+            alert.setTitle("삭제 확인")
+            alert.setMessage("정말 이 앱을 삭제하시겠습니까?")
+            alert.setPositiveButton("확인", object : DialogInterface.OnClickListener {
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+
+                    Log.d("앱목록갯수-삭제전", apps.size.toString())
+                    apps.removeAt(position)
+                    Log.d("앱목록갯수-삭제후", apps.size.toString())
+
+                    mAppAdapter?.notifyDataSetChanged()
+
+                }
+
+            })
+            alert.setNegativeButton("취소", null)
+
+            alert.show()
+
+
+
+            return@setOnItemLongClickListener true
+        }
 
     }
 
